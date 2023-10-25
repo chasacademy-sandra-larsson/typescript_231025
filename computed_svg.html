@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue SVG Progress Bar</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <svg width="220" height="220" viewBox="0 0 220 220">
+        <circle cx="110" cy="110" :r="radius" stroke="#eee" stroke-width="10" fill="none"></circle>
+        <circle cx="110" cy="110" :r="radius" :stroke-dasharray="circumference" :stroke-dashoffset="offset" stroke="blue" stroke-width="10" fill="none"></circle>
+    </svg>
+    <br>
+    <input type="range" v-model.number="progress" min="0" max="100">
+    <p>Progress: {{ progress }}%</p>
+</div>
+
+<script>
+const app = Vue.createApp({
+    data() {
+        return {
+            progress: 50,  // Progress percentage
+            maxRadius: 100 // Maximum possible radius for the circle
+        };
+    },
+    computed: {
+        radius() {
+            return this.maxRadius - 5; // Subtracting stroke-width/2 to keep stroke within viewbox
+        },
+        circumference() {
+            return 2 * Math.PI * this.radius; 
+        },
+        offset() {
+            return this.circumference * (1 - this.progress / 100);
+        }
+    }
+}).mount("#app");
+</script>
+
+</body>
+</html>

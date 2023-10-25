@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Intro</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{counterTitle}}</h1>
+        <p>{{count}}</p>
+        <button @click="increment">++</button>
+        <button @click="decrement">--</button>
+        <br>
+        <lebel for="incrementAmount">Incremented by: {{incrementAmount}}</lebel>
+        <br>
+        <input type="number" v-model="incrementAmount"/>
+        
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {    
+                    count: 0,
+                    incrementAmount: 0,
+                    counterTitle: "My Counter"
+                }
+            },
+            methods: {
+                increment() {
+                    this.count += this.incrementAmount
+                },
+                decrement() {
+                    this.count--
+                }
+            },
+            watch: {
+                count(newValue) {
+                    console.log("count has changed")
+                    if(newValue > 20) {
+                        console.log("above 20")
+                        this.counterTitle += "- the counter has passed 20"
+                    }
+                }
+            }
+
+        }).mount("#app")
+
+    </script>
+</body>
+</html>

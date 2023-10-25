@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computed vs Methods example</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <h2>Numbers: {{ numbers.join(", ") }}</h2>
+
+        <h3>Using Computed:</h3>
+        <p>Sum: {{ computedSum }}</p>
+        <p>Count: {{ computedCount }}</p>
+
+        <h3>Using Methods:</h3>
+        <p>Sum: {{ calculateSum() }}</p>
+        <p>Count: {{ calculateCount() }}</p>
+
+        <button @click="addRandomNumber">Add Random Number</button>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+
+        const { createApp } = Vue;
+        const app = createApp({
+            data() {
+                return {
+                    numbers: [1, 2, 3, 4, 5, 6]
+                };
+            },
+            computed: {
+                computedSum() {
+                    return this.numbers.reduce((acc, curr) => acc + curr, 0);
+                },
+                computedCount() {
+                    return this.numbers.length;
+                }
+            },
+            methods: {
+                calculateSum() {
+                    return this.numbers.reduce((acc, curr) => acc + curr, 0);
+                },
+                calculateCount() {
+                    return this.numbers.length;
+                },
+                addRandomNumber() {
+                    this.numbers.push(Math.floor(Math.random() * 100) + 1);
+                }
+            }
+        }).mount("#app")
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Product Filter</title>
+</head>
+<body>
+
+<div id="app">
+    <input type="text" v-model="searchTerm" placeholder="Search for a product...">
+    
+    <ul>
+        <li v-for="product in filteredProducts">{{ product.name }} - ${{ product.price }}</li>
+    </ul>
+    
+    <p>Total cost of displayed products: ${{ totalCost }}</p>
+</div>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<script>
+const {createApp} = Vue
+const app = createApp({
+    data() {
+        return {
+            searchTerm: '',
+            products: [
+                { name: 'Laptop', price: 1000 },
+                { name: 'Headphones', price: 150 },
+                { name: 'Mouse', price: 20 },
+                { name: 'Monitor', price: 250 },
+                { name: 'Keyboard', price: 50 }
+            ]
+        };
+    },
+    computed: {
+        filteredProducts() {
+            return this.products.filter(product => 
+                product.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+            );
+        },
+        totalCost() {
+            return this.filteredProducts.reduce((sum, product) => sum + product.price, 0);
+        }
+    }
+}).mount("#app");
+</script>
+
+</body>
+</html>
